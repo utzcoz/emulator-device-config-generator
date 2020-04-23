@@ -1,7 +1,5 @@
 package com.utzcoz.emulator.device.generator
 
-import java.lang.IllegalArgumentException
-
 /**
  * The networking type based on com.android.dvlib.devices-5.xsd.
  */
