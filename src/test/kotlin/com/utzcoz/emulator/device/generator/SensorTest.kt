@@ -30,7 +30,7 @@ class SensorTest {
             Sensor.getSensorType(type)
         }
     }
-    
+
     companion object {
         @JvmStatic
         fun sensorTypes() = listOf(
