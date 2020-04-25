@@ -1,6 +1,7 @@
 package com.utzcoz.emulator.device.generator
 
 import com.utzcoz.emulator.device.generator.type.AbiType
+import com.utzcoz.emulator.device.generator.type.BluetoothProfileType
 import com.utzcoz.emulator.device.generator.type.ButtonsType
 import com.utzcoz.emulator.device.generator.type.CameraLocation
 import com.utzcoz.emulator.device.generator.type.KeyboardType
@@ -25,6 +26,7 @@ class Device {
     var name: String = ""
     var manufacturer: String = ""
     var hardware: Hardware = Hardware()
+    var software: SoftWare = SoftWare()
 
     companion object {
         fun readTemplate(templateName: String): Device {
@@ -48,12 +50,69 @@ class Device {
                     "id" -> device.id = element.text
                     "manufacturer" -> device.manufacturer = element.text
                     "hardware" -> device.hardware.parse(element)
+                    "software" -> device.software.parse(element)
                 }
             }
             return device
         }
     }
 }
+
+class SoftWare {
+    var apiLevel: String = "28-"
+    var liveWallpaperSupport: Boolean = false
+    var bluetoothProfileTypes: BluetoothProfileTypes = BluetoothProfileTypes("")
+    var glVersion: Float = 3.1F
+    var glExtensions: GlExtensions = GlExtensions("")
+    var statusBar: Boolean = true
+
+    fun parse(softwareElement: Element) {
+        for (element in softwareElement.elementIterator()) {
+            when (element.name) {
+                "api-level" -> {
+                    apiLevel = element.textTrim
+                    assert("[\\d]*-[\\d]*|[\\d]+".toRegex().matches(apiLevel))
+                }
+                "live-wallpaper-support" -> liveWallpaperSupport = element.textTrim!!.toBoolean()
+                "gl-version" -> {
+                    glVersion = element.textTrim!!.toFloat()
+                    assert("[0-9]\\.[0-9]".toRegex().matches(element.textTrim))
+                }
+                "gl-extensions" -> glExtensions = GlExtensions(element.text)
+                "status-bar" -> statusBar = element.textTrim!!.toBoolean()
+                "bluetooth-profiles" -> bluetoothProfileTypes = BluetoothProfileTypes(element.text)
+            }
+        }
+    }
+}
+
+class GlExtensions(glExtensionsString: String) {
+    val extensions: List<String> = generateGlExtensions(glExtensionsString)
+
+    companion object {
+        private fun generateGlExtensions(glExtensionsString: String) =
+            glExtensionsString
+                .lines()
+                .map { s -> s.trim() }
+                .filter { s -> s.isNotEmpty() }
+                .toList()
+    }
+}
+
+class BluetoothProfileTypes(bluetoothProfilesString: String) {
+    val bluetoothProfileTypes: List<BluetoothProfileType> = generateBluetoothProfiles(bluetoothProfilesString)
+
+    companion object {
+        fun generateBluetoothProfiles(bluetoothProfilesString: String) =
+            bluetoothProfilesString
+                .lines()
+                .map { s -> s.trim() }
+                .filter { s -> s.isNotEmpty() }
+                .map { s -> BluetoothProfileType.getBluetoothProfileType(s) }
+                .toList()
+    }
+}
+
 
 class Hardware {
     var screen: Screen = Screen()
@@ -174,14 +233,13 @@ class NetworkingList(networkingListString: String) {
     var networkingList: List<Networking> = generateNetworkingList(networkingListString)
 
     companion object {
-        private fun generateNetworkingList(networkingListString: String): List<Networking> {
-            return networkingListString
+        private fun generateNetworkingList(networkingListString: String) =
+            networkingListString
                 .lines()
                 .map { s -> s.trim() }
                 .filter { s -> s.isNotEmpty() }
                 .map { s -> Networking.getNetworkingType(s) }
                 .toList()
-        }
     }
 }
 
@@ -189,14 +247,13 @@ class Sensors(sensorsString: String) {
     var sensors: List<Sensor> = generateSensors(sensorsString)
 
     companion object {
-        private fun generateSensors(sensorsString: String): List<Sensor> {
-            return sensorsString
+        private fun generateSensors(sensorsString: String) =
+            sensorsString
                 .lines()
                 .map { s -> s.trim() }
                 .filter { s -> s.isNotEmpty() }
                 .map { s -> Sensor.getSensorType(s) }
                 .toList()
-        }
     }
 }
 
@@ -204,14 +261,13 @@ class AbiList(abiListString: String) {
     var abiList: List<AbiType> = generateAbiList(abiListString)
 
     companion object {
-        private fun generateAbiList(abiListString: String): List<AbiType> {
-            return abiListString
+        private fun generateAbiList(abiListString: String): List<AbiType> =
+            abiListString
                 .splitToSequence("\r\n", "\n", "\r", "\t", "\\s+")
                 .map { s -> s.trim() }
                 .filter { s -> s.isNotEmpty() }
                 .map { s -> AbiType.getAbiType(s) }
                 .toList()
-        }
     }
 }
 
