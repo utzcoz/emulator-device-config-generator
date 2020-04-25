@@ -1,4 +1,4 @@
-package com.utzcoz.emulator.device.generator.hardware
+package com.utzcoz.emulator.device.generator.hardware.screen
 
 enum class ScreenType(val type: String) {
     NO_TOUCH("notouch"),

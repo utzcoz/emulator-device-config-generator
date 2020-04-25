@@ -1,4 +1,4 @@
-package com.utzcoz.emulator.device.generator.hardware
+package com.utzcoz.emulator.device.generator.hardware.screen
 
 import org.dom4j.Element
 
@@ -7,12 +7,10 @@ class Screen {
     var diagonalLength: Float = -1F
     var pixelDensity: PixelDensity = PixelDensity.MDPI
     var screenRatio: ScreenRatio = ScreenRatio.NOT_LONG
-    var dimensions: Dimensions =
-        Dimensions()
+    var dimensions: Dimensions = Dimensions()
     var xdpi: Float = 0F
     var ydpi: Float = 0F
-    var touch: Touch =
-        Touch()
+    var touch: Touch = Touch()
 
     fun parse(screenElement: Element) {
         for (element in screenElement.elementIterator()) {
@@ -61,18 +59,9 @@ class Touch {
     fun parse(touchElement: Element) {
         for (element in touchElement.elementIterator()) {
             when (element.name) {
-                "multitouch" -> multiTouchType =
-                    MultiTouchType.getMultiTouchType(
-                        element.text
-                    )
-                "mechanism" -> mechanismType =
-                    MechanismType.getMechanismType(
-                        element.text
-                    )
-                "screen-type" -> screenType =
-                    ScreenType.getScreenType(
-                        element.text
-                    )
+                "multitouch" -> multiTouchType = MultiTouchType.getMultiTouchType(element.text)
+                "mechanism" -> mechanismType = MechanismType.getMechanismType(element.text)
+                "screen-type" -> screenType = ScreenType.getScreenType(element.text)
             }
         }
     }

@@ -1,4 +1,4 @@
-package com.utzcoz.emulator.device.generator.hardware
+package com.utzcoz.emulator.device.generator.hardware.screen
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.assertThrows

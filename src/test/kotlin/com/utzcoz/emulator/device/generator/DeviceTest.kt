@@ -2,26 +2,26 @@ package com.utzcoz.emulator.device.generator
 
 import com.utzcoz.emulator.device.generator.hardware.AbiList
 import com.utzcoz.emulator.device.generator.hardware.Camera
-import com.utzcoz.emulator.device.generator.hardware.Dimensions
+import com.utzcoz.emulator.device.generator.hardware.screen.Dimensions
 import com.utzcoz.emulator.device.generator.hardware.Hardware
 import com.utzcoz.emulator.device.generator.hardware.NetworkingList
-import com.utzcoz.emulator.device.generator.hardware.Screen
+import com.utzcoz.emulator.device.generator.hardware.screen.Screen
 import com.utzcoz.emulator.device.generator.hardware.Sensors
 import com.utzcoz.emulator.device.generator.software.GlExtensions
 import com.utzcoz.emulator.device.generator.state.State
 import com.utzcoz.emulator.device.generator.hardware.ButtonsType
 import com.utzcoz.emulator.device.generator.hardware.CameraLocation
 import com.utzcoz.emulator.device.generator.hardware.KeyboardType
-import com.utzcoz.emulator.device.generator.hardware.MechanismType
-import com.utzcoz.emulator.device.generator.hardware.MultiTouchType
+import com.utzcoz.emulator.device.generator.hardware.screen.MechanismType
+import com.utzcoz.emulator.device.generator.hardware.screen.MultiTouchType
 import com.utzcoz.emulator.device.generator.state.NavState
 import com.utzcoz.emulator.device.generator.hardware.NavType
-import com.utzcoz.emulator.device.generator.hardware.PixelDensity
+import com.utzcoz.emulator.device.generator.hardware.screen.PixelDensity
 import com.utzcoz.emulator.device.generator.hardware.PowerType
 import com.utzcoz.emulator.device.generator.state.ScreenOrientation
-import com.utzcoz.emulator.device.generator.hardware.ScreenRatio
-import com.utzcoz.emulator.device.generator.hardware.ScreenSize
-import com.utzcoz.emulator.device.generator.hardware.ScreenType
+import com.utzcoz.emulator.device.generator.hardware.screen.ScreenRatio
+import com.utzcoz.emulator.device.generator.hardware.screen.ScreenSize
+import com.utzcoz.emulator.device.generator.hardware.screen.ScreenType
 import com.utzcoz.emulator.device.generator.hardware.StorageUnitType
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -118,7 +118,8 @@ class DeviceTest {
             automotiveDevice.id = "automotive_template"
             automotiveDevice.manufacturer = "Generic"
             automotiveDevice.hardware = Hardware()
-            automotiveDevice.hardware.screen = Screen()
+            automotiveDevice.hardware.screen =
+                Screen()
             automotiveDevice.hardware.screen.screenSize = ScreenSize.NORMAL
             automotiveDevice.hardware.screen.diagonalLength = 8.4F
             automotiveDevice.hardware.screen.pixelDensity = PixelDensity.MDPI

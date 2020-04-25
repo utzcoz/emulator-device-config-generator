@@ -1,4 +1,4 @@
-package com.utzcoz.emulator.device.generator.hardware
+package com.utzcoz.emulator.device.generator.hardware.screen
 
 enum class ScreenRatio(val type: String) {
     NOT_LONG("notlong"),

@@ -1,5 +1,6 @@
 package com.utzcoz.emulator.device.generator.hardware
 
+import com.utzcoz.emulator.device.generator.hardware.screen.Screen
 import org.dom4j.Element
 
 class Hardware {
