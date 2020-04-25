@@ -16,7 +16,7 @@ class NetworkingTest {
     @ParameterizedTest
     @MethodSource("unsupportedNetworkingTypes")
     fun testGetNetworkingTypeWithUnsupportedType(type: String) {
-        assertThrows<IllegalArgumentException>("Don't support networking $type") {
+        assertThrows<IllegalArgumentException> {
             Networking.getNetworkingType(type)
         }
     }

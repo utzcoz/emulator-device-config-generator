@@ -16,7 +16,7 @@ class NavTypeTest {
     @ParameterizedTest
     @MethodSource("unsupportedNavTypes")
     fun testGetNavTypeWithUnsupportedTypes(inputType: String) {
-        assertThrows<IllegalArgumentException>("Don't support nav type $inputType") {
+        assertThrows<IllegalArgumentException> {
             NavType.getNavType(inputType)
         }
     }

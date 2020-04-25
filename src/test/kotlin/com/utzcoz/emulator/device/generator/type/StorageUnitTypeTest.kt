@@ -16,7 +16,7 @@ class StorageUnitTypeTest {
     @ParameterizedTest
     @MethodSource("unsupportedStorageUnitTypes")
     fun testGetStorageUnitTypeWithUnsupportedTypes(inputType: String) {
-        assertThrows<IllegalArgumentException>("Don't support storage unit type $inputType") {
+        assertThrows<IllegalArgumentException> {
             StorageUnitType.getStorageUnitType(inputType)
         }
     }

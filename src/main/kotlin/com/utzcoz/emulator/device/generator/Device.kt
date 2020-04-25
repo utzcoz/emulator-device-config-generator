@@ -4,13 +4,16 @@ import com.utzcoz.emulator.device.generator.type.AbiType
 import com.utzcoz.emulator.device.generator.type.BluetoothProfileType
 import com.utzcoz.emulator.device.generator.type.ButtonsType
 import com.utzcoz.emulator.device.generator.type.CameraLocation
+import com.utzcoz.emulator.device.generator.type.KeyboardState
 import com.utzcoz.emulator.device.generator.type.KeyboardType
 import com.utzcoz.emulator.device.generator.type.MechanismType
 import com.utzcoz.emulator.device.generator.type.MultiTouchType
+import com.utzcoz.emulator.device.generator.type.NavState
 import com.utzcoz.emulator.device.generator.type.NavType
 import com.utzcoz.emulator.device.generator.type.Networking
 import com.utzcoz.emulator.device.generator.type.PixelDensity
 import com.utzcoz.emulator.device.generator.type.PowerType
+import com.utzcoz.emulator.device.generator.type.ScreenOrientation
 import com.utzcoz.emulator.device.generator.type.ScreenRatio
 import com.utzcoz.emulator.device.generator.type.ScreenSize
 import com.utzcoz.emulator.device.generator.type.ScreenType
@@ -27,6 +30,8 @@ class Device {
     var manufacturer: String = ""
     var hardware: Hardware = Hardware()
     var software: SoftWare = SoftWare()
+    var states: Set<State> = mutableSetOf()
+    var tagId: String = ""
 
     companion object {
         fun readTemplate(templateName: String): Device {
@@ -51,10 +56,73 @@ class Device {
                     "manufacturer" -> device.manufacturer = element.text
                     "hardware" -> device.hardware.parse(element)
                     "software" -> device.software.parse(element)
+                    "state" -> {
+                        val state = State()
+                        state.parse(element)
+                        device.states.plus(state)
+                    }
+                    "tag-id" -> device.tagId = element.textTrim
                 }
             }
             return device
         }
+    }
+}
+
+class State {
+    var default: Boolean = false
+    var name: String = ""
+    var description: String = ""
+    var screenOrientation: ScreenOrientation = ScreenOrientation.PORTRAIT
+    var keyboardState: KeyboardState = KeyboardState.KEYS_SOFT
+    var navState: NavState = NavState.NO_NAV
+
+    fun parse(stateElement: Element) {
+        val defaultAttribute = stateElement.attribute("default")
+        if (defaultAttribute != null) {
+            val defaultContent = defaultAttribute.text
+            if (!defaultContent.isNullOrBlank() && !defaultContent.isNullOrEmpty()) {
+                default = defaultContent.trim().toBoolean()
+            }
+        }
+        name = stateElement.attribute("name").text!!
+        for (element in stateElement.elementIterator()) {
+            when (element.name) {
+                "description" -> description = element.textTrim
+                "screen-orientation" ->
+                    screenOrientation = ScreenOrientation.getScreenOrientationType(element.textTrim)
+                "keyboard-state" -> keyboardState = KeyboardState.getKeyboardState(element.textTrim)
+                "nav-state" -> navState = NavState.getNavState(element.textTrim)
+            }
+        }
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (other !is State) {
+            return false
+        }
+        return default == other.default
+                && name == other.name
+                && description == other.description
+                && screenOrientation == other.screenOrientation
+                && keyboardState == other.keyboardState
+                && navState == other.navState
+    }
+
+    override fun hashCode(): Int {
+        return ((((default.hashCode() * 31
+                + name.hashCode()) * 31
+                + description.hashCode()) * 31
+                + screenOrientation.hashCode()) * 31
+                + keyboardState.hashCode()) * 31 + navState.hashCode()
+    }
+
+    override fun toString(): String {
+        return "State [ default: $default, name: $name, " +
+                "description $description, " +
+                "screen orientation: $screenOrientation, " +
+                "keyboard state: $keyboardState, " +
+                "nav state: $navState ]"
     }
 }
 

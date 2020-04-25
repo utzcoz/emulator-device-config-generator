@@ -16,7 +16,7 @@ class MechanismTypeTest {
     @ParameterizedTest
     @MethodSource("unsupportedMechanismTypes")
     fun testGetMechanismTypeWithUnsupportedTypes(inputType: String) {
-        assertThrows<IllegalArgumentException>("Don't support mechanism type $inputType") {
+        assertThrows<IllegalArgumentException> {
             MechanismType.getMechanismType(inputType)
         }
     }

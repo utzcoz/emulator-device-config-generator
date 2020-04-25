@@ -16,7 +16,7 @@ class PowerTypeTest {
     @ParameterizedTest
     @MethodSource("unsupportedPowerTypes")
     fun testGetPowerTypeWithUnsupportedTypes(inputType: String) {
-        assertThrows<IllegalArgumentException>("Don't support power type $inputType") {
+        assertThrows<IllegalArgumentException> {
             PowerType.getPowerType(inputType)
         }
     }

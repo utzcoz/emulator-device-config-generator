@@ -16,7 +16,7 @@ class BluetoothProfileTypeTest {
     @ParameterizedTest
     @MethodSource("unsupportedBluetoothProfileTypes")
     fun testGetBluetoothProfileTypeWithUnsupportedTypes(inputType: String) {
-        assertThrows<IllegalArgumentException>("Don't support bluetooth profile type $inputType") {
+        assertThrows<IllegalArgumentException> {
             BluetoothProfileType.getBluetoothProfileType(inputType)
         }
     }

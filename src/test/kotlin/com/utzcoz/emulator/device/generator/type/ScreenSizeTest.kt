@@ -16,7 +16,7 @@ class ScreenSizeTest {
     @ParameterizedTest
     @MethodSource("unsupportedScreenSizeTypes")
     fun testGetScreenSizeTypeWithUnsupportedTypes(inputType: String) {
-        assertThrows<IllegalArgumentException>("Don't support screen size $inputType") {
+        assertThrows<IllegalArgumentException> {
             ScreenSize.getScreenSizeType(inputType)
         }
     }

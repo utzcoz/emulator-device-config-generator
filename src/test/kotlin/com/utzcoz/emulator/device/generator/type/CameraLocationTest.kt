@@ -16,7 +16,7 @@ class CameraLocationTest {
     @ParameterizedTest
     @MethodSource("unsupportedCameraLocations")
     fun testGetCameraLocationWithUnsupportedCameraLocations(inputLocation: String) {
-        assertThrows<IllegalArgumentException>("Don't support camera location $inputLocation") {
+        assertThrows<IllegalArgumentException> {
             CameraLocation.getCameraLocation(inputLocation)
         }
     }

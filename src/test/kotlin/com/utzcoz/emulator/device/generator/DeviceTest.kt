@@ -5,9 +5,11 @@ import com.utzcoz.emulator.device.generator.type.CameraLocation
 import com.utzcoz.emulator.device.generator.type.KeyboardType
 import com.utzcoz.emulator.device.generator.type.MechanismType
 import com.utzcoz.emulator.device.generator.type.MultiTouchType
+import com.utzcoz.emulator.device.generator.type.NavState
 import com.utzcoz.emulator.device.generator.type.NavType
 import com.utzcoz.emulator.device.generator.type.PixelDensity
 import com.utzcoz.emulator.device.generator.type.PowerType
+import com.utzcoz.emulator.device.generator.type.ScreenOrientation
 import com.utzcoz.emulator.device.generator.type.ScreenRatio
 import com.utzcoz.emulator.device.generator.type.ScreenSize
 import com.utzcoz.emulator.device.generator.type.ScreenType
@@ -26,6 +28,7 @@ class DeviceTest {
         assertEquals(expected.name, actual.name)
         assertEquals(expected.id, actual.id)
         assertEquals(expected.manufacturer, actual.manufacturer)
+        assertEquals(expected.tagId, actual.tagId)
     }
 
     @ParameterizedTest
@@ -91,6 +94,13 @@ class DeviceTest {
         assertEquals(expected.software.statusBar, actual.software.statusBar)
     }
 
+    @ParameterizedTest
+    @MethodSource("templates")
+    fun testReadTemplateWithExistTemplatesForDeviceState(templateName: String, expected: Device) {
+        val actual = Device.readTemplate(templateName)
+        assertEquals(expected.states, actual.states)
+    }
+
     companion object {
         @JvmStatic
         private fun generateAutomotiveDevice(): Device {
@@ -137,6 +147,14 @@ class DeviceTest {
             automotiveDevice.hardware.abiList = AbiList(abiListString)
             automotiveDevice.software.apiLevel = "28-"
             automotiveDevice.software.glVersion = 2.0F
+            val state = State()
+            state.default = true
+            state.name = "Landscape"
+            state.description = "The device in landscape orientation"
+            state.screenOrientation = ScreenOrientation.LANDSCAPE
+            state.navState = NavState.NAV_HIDDEN
+            automotiveDevice.states.plus(state)
+            automotiveDevice.tagId = "android-automotive"
             return automotiveDevice
         }
 
@@ -293,6 +311,19 @@ class DeviceTest {
                 GL_EXT_clip_control
             """.trimIndent()
             tabletDevice.software.glExtensions = GlExtensions(glExtensionsString)
+            val portraitState = State()
+            portraitState.default = false
+            portraitState.name = "Portrait"
+            portraitState.description = "The device in portrait view"
+            portraitState.screenOrientation = ScreenOrientation.PORTRAIT
+            portraitState.navState = NavState.NAV_HIDDEN
+            val landscapeState = State()
+            landscapeState.default = true
+            landscapeState.name = "Landscape"
+            landscapeState.description = "The device in landscape view"
+            landscapeState.screenOrientation = ScreenOrientation.LANDSCAPE
+            landscapeState.navState = NavState.NAV_HIDDEN
+            tabletDevice.states.plus(portraitState).plus(landscapeState)
             return tabletDevice
         }
 
@@ -343,6 +374,20 @@ class DeviceTest {
             tvDevice.software.liveWallpaperSupport = true
             tvDevice.software.glVersion = 2.0F
             tvDevice.software.statusBar = false
+            val landscapeState = State()
+            landscapeState.default = true
+            landscapeState.name = "Landscape"
+            landscapeState.description = "The device in landscape orientation"
+            landscapeState.screenOrientation = ScreenOrientation.LANDSCAPE
+            landscapeState.navState = NavState.NAV_EXPOSED
+            val landscapeWithKeyboardState = State()
+            landscapeWithKeyboardState.default = false
+            landscapeWithKeyboardState.name = "Landscape with keyboard"
+            landscapeWithKeyboardState.description = "The device in landscape orientation with a keyboard open"
+            landscapeWithKeyboardState.screenOrientation = ScreenOrientation.LANDSCAPE
+            landscapeWithKeyboardState.navState = NavState.NAV_EXPOSED
+            tvDevice.states.plus(landscapeState).plus(landscapeWithKeyboardState)
+            tvDevice.tagId = "android-tv"
             return tvDevice
         }
 

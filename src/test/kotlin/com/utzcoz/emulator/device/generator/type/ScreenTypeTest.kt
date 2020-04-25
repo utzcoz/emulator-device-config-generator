@@ -16,7 +16,7 @@ class ScreenTypeTest {
     @ParameterizedTest
     @MethodSource("unsupportedScreenTypes")
     fun testGetScreenTypeWithUnsupportedTypes(inputType: String) {
-        assertThrows<IllegalArgumentException>("Don't support screen type $inputType") {
+        assertThrows<IllegalArgumentException> {
             ScreenType.getScreenType(inputType)
         }
     }

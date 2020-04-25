@@ -16,7 +16,7 @@ class ScreenRatioTest {
     @ParameterizedTest
     @MethodSource("unsupportedScreenRatioTypes")
     fun testGetScreenRatioWithUnsupportedTypes(inputType: String) {
-        assertThrows<IllegalArgumentException>("Don't support screen ratio $inputType") {
+        assertThrows<IllegalArgumentException> {
             ScreenRatio.getScreenRatioType(inputType)
         }
     }

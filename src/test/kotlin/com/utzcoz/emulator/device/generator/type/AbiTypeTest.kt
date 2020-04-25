@@ -16,7 +16,7 @@ class AbiTypeTest {
     @ParameterizedTest
     @MethodSource("unsupportedAbiTypes")
     fun testGetAbiTypeWithUnsupportedTypes(inputType: String) {
-        assertThrows<IllegalArgumentException>("Don't support abi type $inputType") {
+        assertThrows<IllegalArgumentException> {
             AbiType.getAbiType(inputType)
         }
     }

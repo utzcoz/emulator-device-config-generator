@@ -6,32 +6,33 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
 
-class DockTypeTest {
+class NavStateTest {
     @ParameterizedTest
-    @MethodSource("dockTypes")
-    fun testGetDockTypeWithSupportedTypes(inputType: String, dockType: DockType) {
-        assertEquals(dockType, DockType.getDockType(inputType))
+    @MethodSource("navStates")
+    fun testGetNavStateWithSupportedStates(inputState: String, navState: NavState) {
+        assertEquals(navState, NavState.getNavState(inputState))
     }
 
     @ParameterizedTest
-    @MethodSource("unsupportedDockTypes")
-    fun testGetDockTypeWithUnsupportedTypes(inputType: String) {
+    @MethodSource("unsupportedNavStates")
+    fun testGetNavStateWithUnsupportedStates(inputState: String) {
         assertThrows<IllegalArgumentException> {
-            DockType.getDockType(inputType)
+            NavState.getNavState(inputState)
         }
     }
 
+
     companion object {
         @JvmStatic
-        fun dockTypes() =
-            DockType.values().map { dockType -> Arguments.of(dockType.type, dockType) }.toList()
+        fun navStates() =
+            NavState.values().map { navState -> Arguments.of(navState.state, navState) }.toList()
 
         @JvmStatic
-        fun unsupportedDockTypes(): List<Arguments> {
+        fun unsupportedNavStates(): List<Arguments> {
             val result =
-                DockType
+                NavState
                     .values()
-                    .map { dockType -> Arguments.of(dockType.type + "-unsupported") }
+                    .map { navState -> Arguments.of(navState.state + "-unsupported") }
                     .toMutableList()
             result.add(Arguments.of("unsupported"))
             return result

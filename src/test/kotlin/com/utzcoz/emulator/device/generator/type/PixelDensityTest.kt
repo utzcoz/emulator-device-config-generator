@@ -16,7 +16,7 @@ class PixelDensityTest {
     @ParameterizedTest
     @MethodSource("unsupportedPixelDensityTypes")
     fun testGetPixelDensityTypesWithUnsupportedTypes(inputType: String) {
-        assertThrows<IllegalArgumentException>("Don't support pixel density $inputType") {
+        assertThrows<IllegalArgumentException> {
             PixelDensity.getPixelDensityType(inputType)
         }
     }

@@ -16,7 +16,7 @@ class MultiTouchTypeTest {
     @ParameterizedTest
     @MethodSource("unsupportedMultiTouchTypes")
     fun testGetMultiTouchTypesWithUnsupportedTypes(inputType: String) {
-        assertThrows<IllegalArgumentException>("Don't support multitouch type $inputType") {
+        assertThrows<IllegalArgumentException> {
             MultiTouchType.getMultiTouchType(inputType)
         }
     }

@@ -16,7 +16,7 @@ class KeyboardTypeTest {
     @ParameterizedTest
     @MethodSource("unsupportedKeyboardTypes")
     fun testGetKeyboardTypeWithUnsupportedTypes(inputType: String) {
-        assertThrows<IllegalArgumentException>("Don't support keyboard type $inputType") {
+        assertThrows<IllegalArgumentException> {
             KeyboardType.getKeyboardType(inputType)
         }
     }

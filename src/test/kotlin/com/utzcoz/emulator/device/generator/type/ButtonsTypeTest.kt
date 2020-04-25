@@ -17,7 +17,7 @@ class ButtonsTypeTest {
     @ParameterizedTest
     @MethodSource("unsupportedButtonsTypes")
     fun testGetButtonsTypeWithUnsupportedTypes(inputType: String) {
-        assertThrows<IllegalArgumentException>("Don't support buttons type $inputType") {
+        assertThrows<IllegalArgumentException> {
             ButtonsType.getButtonsType(inputType)
         }
     }

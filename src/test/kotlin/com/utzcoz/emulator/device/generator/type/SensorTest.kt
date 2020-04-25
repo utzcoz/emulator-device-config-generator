@@ -16,7 +16,7 @@ class SensorTest {
     @ParameterizedTest
     @MethodSource("unsupportedSensorTypes")
     fun testGetSensorTypeWithUnsupportedType(type: String) {
-        assertThrows<IllegalArgumentException>("Don't support sensor $type") {
+        assertThrows<IllegalArgumentException> {
             Sensor.getSensorType(type)
         }
     }
