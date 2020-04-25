@@ -1,8 +1,5 @@
-package com.utzcoz.emulator.device.generator
+package com.utzcoz.emulator.device.generator.type
 
-/**
- * The networking type based on com.android.dvlib.devices-5.xsd.
- */
 enum class Networking(val type: String) {
     NFC("NFC"),
     BLUETOOTH("Bluetooth"),
@@ -10,10 +7,10 @@ enum class Networking(val type: String) {
 
     companion object {
         fun getNetworkingType(inputType: String): Networking {
-            when (inputType) {
-                NFC.type -> return NFC;
-                BLUETOOTH.type -> return BLUETOOTH;
-                WIFI.type -> return WIFI;
+            for (networking in values()) {
+                if (networking.type == inputType) {
+                    return networking
+                }
             }
             throw IllegalArgumentException("Don't support networking $inputType")
         }

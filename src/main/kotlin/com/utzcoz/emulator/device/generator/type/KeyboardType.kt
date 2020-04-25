@@ -1,4 +1,4 @@
-package com.utzcoz.emulator.device.generator
+package com.utzcoz.emulator.device.generator.type
 
 enum class KeyboardType(val type: String) {
     QWERTY("qwerty"),

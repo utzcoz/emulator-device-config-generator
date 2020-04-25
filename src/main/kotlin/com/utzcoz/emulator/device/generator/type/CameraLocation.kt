@@ -1,4 +1,4 @@
-package com.utzcoz.emulator.device.generator
+package com.utzcoz.emulator.device.generator.type
 
 enum class CameraLocation(val location: String) {
     FRONT("front"),
@@ -6,9 +6,10 @@ enum class CameraLocation(val location: String) {
 
     companion object {
         fun getCameraLocation(inputLocation: String): CameraLocation {
-            when (inputLocation) {
-                FRONT.location -> return FRONT
-                BACK.location -> return BACK
+            for (location in values()) {
+                if (location.location == inputLocation) {
+                    return location
+                }
             }
             throw IllegalArgumentException("Don't support camera location $inputLocation")
         }

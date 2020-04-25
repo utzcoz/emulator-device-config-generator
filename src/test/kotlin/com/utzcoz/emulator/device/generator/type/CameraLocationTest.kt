@@ -1,20 +1,16 @@
-package com.utzcoz.emulator.device.generator
+package com.utzcoz.emulator.device.generator.type
 
-import com.utzcoz.emulator.device.generator.CameraLocation.BACK
-import com.utzcoz.emulator.device.generator.CameraLocation.FRONT
-import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
-import java.lang.IllegalArgumentException
-import org.hamcrest.CoreMatchers.`is` as hamis
 
 class CameraLocationTest {
     @ParameterizedTest
     @MethodSource("cameraLocations")
     fun testGetCameraLocationWithSupportedCameraLocations(inputLocation: String, location: CameraLocation) {
-        assertThat(CameraLocation.getCameraLocation(inputLocation), hamis(location))
+        assertEquals(location, CameraLocation.getCameraLocation(inputLocation))
     }
 
     @ParameterizedTest
@@ -27,16 +23,18 @@ class CameraLocationTest {
 
     companion object {
         @JvmStatic
-        fun cameraLocations() = listOf(
-            Arguments.of(FRONT.location, FRONT),
-            Arguments.of(BACK.location, BACK)
-        )
+        fun cameraLocations() =
+            CameraLocation.values().map { location -> Arguments.of(location.location, location) }.toList()
 
         @JvmStatic
-        fun unsupportedCameraLocations() = listOf(
-            Arguments.of("unsupported"),
-            Arguments.of(FRONT.location + "-unsupported"),
-            Arguments.of(BACK.location + "-unsupported")
-        )
+        fun unsupportedCameraLocations(): List<Arguments> {
+            val result =
+                CameraLocation
+                    .values()
+                    .map { location -> Arguments.of(location.location + "-unsupported") }
+                    .toMutableList()
+            result.add(Arguments.of("unsupported"))
+            return result
+        }
     }
 }

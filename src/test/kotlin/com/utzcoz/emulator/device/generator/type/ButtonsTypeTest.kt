@@ -1,20 +1,17 @@
-package com.utzcoz.emulator.device.generator
+package com.utzcoz.emulator.device.generator.type
 
-import com.utzcoz.emulator.device.generator.ButtonsType.HARD
-import com.utzcoz.emulator.device.generator.ButtonsType.SOFT
-import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
-import org.hamcrest.CoreMatchers.`is` as hamis
 
 class ButtonsTypeTest {
 
     @ParameterizedTest
     @MethodSource("buttonsTypes")
     fun testGetButtonsTypeWithSupportedTypes(inputType: String, buttonsType: ButtonsType) {
-        assertThat(ButtonsType.getButtonsType(inputType), hamis(buttonsType))
+        assertEquals(buttonsType, ButtonsType.getButtonsType(inputType))
     }
 
     @ParameterizedTest
@@ -25,19 +22,20 @@ class ButtonsTypeTest {
         }
     }
 
-
     companion object {
         @JvmStatic
-        fun buttonsTypes() = listOf(
-            Arguments.of(HARD.type, HARD),
-            Arguments.of(SOFT.type, SOFT)
-        )
+        fun buttonsTypes() =
+            ButtonsType.values().map { buttonsType -> Arguments.of(buttonsType.type, buttonsType) }.toList()
 
         @JvmStatic
-        fun unsupportedButtonsTypes() = listOf(
-            Arguments.of("unsupported"),
-            Arguments.of(HARD.type + "-unsupported"),
-            Arguments.of(SOFT.type + "-unsupported")
-        )
+        fun unsupportedButtonsTypes(): List<Arguments> {
+            val result =
+                ButtonsType
+                    .values()
+                    .map { buttonsType -> Arguments.of(buttonsType.type + "-unsupported") }
+                    .toMutableList()
+            result.add(Arguments.of("unsupported"))
+            return result
+        }
     }
 }
