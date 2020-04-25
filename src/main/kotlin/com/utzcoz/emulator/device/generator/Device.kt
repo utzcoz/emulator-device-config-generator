@@ -1,5 +1,8 @@
 package com.utzcoz.emulator.device.generator
 
+import com.utzcoz.emulator.device.generator.hardware.Hardware
+import com.utzcoz.emulator.device.generator.software.Software
+import com.utzcoz.emulator.device.generator.state.State
 import org.dom4j.io.SAXReader
 import java.io.File
 import java.net.URL
@@ -8,8 +11,10 @@ class Device {
     var id: String = ""
     var name: String = ""
     var manufacturer: String = ""
-    var hardware: Hardware = Hardware()
-    var software: Software = Software()
+    var hardware: Hardware =
+        Hardware()
+    var software: Software =
+        Software()
     var states: Set<State> = mutableSetOf()
     var tagId: String = ""
 

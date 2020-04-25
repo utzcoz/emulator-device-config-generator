@@ -1,19 +1,28 @@
 package com.utzcoz.emulator.device.generator
 
-import com.utzcoz.emulator.device.generator.type.ButtonsType
-import com.utzcoz.emulator.device.generator.type.CameraLocation
-import com.utzcoz.emulator.device.generator.type.KeyboardType
-import com.utzcoz.emulator.device.generator.type.MechanismType
-import com.utzcoz.emulator.device.generator.type.MultiTouchType
-import com.utzcoz.emulator.device.generator.type.NavState
-import com.utzcoz.emulator.device.generator.type.NavType
-import com.utzcoz.emulator.device.generator.type.PixelDensity
-import com.utzcoz.emulator.device.generator.type.PowerType
-import com.utzcoz.emulator.device.generator.type.ScreenOrientation
-import com.utzcoz.emulator.device.generator.type.ScreenRatio
-import com.utzcoz.emulator.device.generator.type.ScreenSize
-import com.utzcoz.emulator.device.generator.type.ScreenType
-import com.utzcoz.emulator.device.generator.type.StorageUnitType
+import com.utzcoz.emulator.device.generator.hardware.AbiList
+import com.utzcoz.emulator.device.generator.hardware.Camera
+import com.utzcoz.emulator.device.generator.hardware.Dimensions
+import com.utzcoz.emulator.device.generator.hardware.Hardware
+import com.utzcoz.emulator.device.generator.hardware.NetworkingList
+import com.utzcoz.emulator.device.generator.hardware.Screen
+import com.utzcoz.emulator.device.generator.hardware.Sensors
+import com.utzcoz.emulator.device.generator.software.GlExtensions
+import com.utzcoz.emulator.device.generator.state.State
+import com.utzcoz.emulator.device.generator.hardware.ButtonsType
+import com.utzcoz.emulator.device.generator.hardware.CameraLocation
+import com.utzcoz.emulator.device.generator.hardware.KeyboardType
+import com.utzcoz.emulator.device.generator.hardware.MechanismType
+import com.utzcoz.emulator.device.generator.hardware.MultiTouchType
+import com.utzcoz.emulator.device.generator.state.NavState
+import com.utzcoz.emulator.device.generator.hardware.NavType
+import com.utzcoz.emulator.device.generator.hardware.PixelDensity
+import com.utzcoz.emulator.device.generator.hardware.PowerType
+import com.utzcoz.emulator.device.generator.state.ScreenOrientation
+import com.utzcoz.emulator.device.generator.hardware.ScreenRatio
+import com.utzcoz.emulator.device.generator.hardware.ScreenSize
+import com.utzcoz.emulator.device.generator.hardware.ScreenType
+import com.utzcoz.emulator.device.generator.hardware.StorageUnitType
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.params.ParameterizedTest
@@ -114,7 +123,8 @@ class DeviceTest {
             automotiveDevice.hardware.screen.diagonalLength = 8.4F
             automotiveDevice.hardware.screen.pixelDensity = PixelDensity.MDPI
             automotiveDevice.hardware.screen.screenRatio = ScreenRatio.NOT_LONG
-            automotiveDevice.hardware.screen.dimensions = Dimensions()
+            automotiveDevice.hardware.screen.dimensions =
+                Dimensions()
             automotiveDevice.hardware.screen.dimensions.xDimension = 1024
             automotiveDevice.hardware.screen.dimensions.yDimension = 768
             automotiveDevice.hardware.screen.xdpi = 152.00F
@@ -127,12 +137,14 @@ class DeviceTest {
                 Wifi
                 NFC
             """.trimIndent()
-            automotiveDevice.hardware.networkingList = NetworkingList(networkingListString)
+            automotiveDevice.hardware.networkingList =
+                NetworkingList(networkingListString)
             val sensorsString = """
                 GPS
                 LightSensor
             """.trimIndent()
-            automotiveDevice.hardware.sensors = Sensors(sensorsString)
+            automotiveDevice.hardware.sensors =
+                Sensors(sensorsString)
             automotiveDevice.hardware.mic = true
             automotiveDevice.hardware.keyboardType = KeyboardType.NO_KEYS
             automotiveDevice.hardware.ramUnit = StorageUnitType.KB
@@ -144,7 +156,8 @@ class DeviceTest {
                 armeabi-v7a
                 x86
             """.trimIndent()
-            automotiveDevice.hardware.abiList = AbiList(abiListString)
+            automotiveDevice.hardware.abiList =
+                AbiList(abiListString)
             automotiveDevice.software.apiLevel = "28-"
             automotiveDevice.software.glVersion = 2.0F
             val state = State()
@@ -180,7 +193,8 @@ class DeviceTest {
                 Wifi
                 NFC
             """.trimIndent()
-            tabletDevice.hardware.networkingList = NetworkingList(networkingListString)
+            tabletDevice.hardware.networkingList =
+                NetworkingList(networkingListString)
             val sensorsString = """
                 Accelerometer
                 Barometer
@@ -190,7 +204,8 @@ class DeviceTest {
                 LightSensor
                 ProximitySensor
             """.trimIndent()
-            tabletDevice.hardware.sensors = Sensors(sensorsString)
+            tabletDevice.hardware.sensors =
+                Sensors(sensorsString)
             tabletDevice.hardware.mic = true
             val cameraFront = Camera()
             cameraFront.location = CameraLocation.FRONT
@@ -214,7 +229,8 @@ class DeviceTest {
                 armeabi-v7a
                 arm64-v8a
             """.trimIndent()
-            tabletDevice.hardware.abiList = AbiList(abiListString)
+            tabletDevice.hardware.abiList =
+                AbiList(abiListString)
             tabletDevice.hardware.powerType = PowerType.BATTERY
             tabletDevice.software.apiLevel = "29-29"
             tabletDevice.software.liveWallpaperSupport = true
@@ -310,7 +326,8 @@ class DeviceTest {
                 GL_EXT_EGL_image_storage
                 GL_EXT_clip_control
             """.trimIndent()
-            tabletDevice.software.glExtensions = GlExtensions(glExtensionsString)
+            tabletDevice.software.glExtensions =
+                GlExtensions(glExtensionsString)
             val portraitState = State()
             portraitState.default = false
             portraitState.name = "Portrait"
@@ -350,12 +367,14 @@ class DeviceTest {
                 Wifi
                 NFC
             """.trimIndent()
-            tvDevice.hardware.networkingList = NetworkingList(networkingListString)
+            tvDevice.hardware.networkingList =
+                NetworkingList(networkingListString)
             val sensorsString = """
                 GPS
                 LightSensor
             """.trimIndent()
-            tvDevice.hardware.sensors = Sensors(sensorsString)
+            tvDevice.hardware.sensors =
+                Sensors(sensorsString)
             tvDevice.hardware.mic = true
             tvDevice.hardware.keyboardType = KeyboardType.QWERTY
             tvDevice.hardware.navType = NavType.DPAD
@@ -369,7 +388,8 @@ class DeviceTest {
                 armeabi-v7a
                 x86
             """.trimIndent()
-            tvDevice.hardware.abiList = AbiList(abiListString)
+            tvDevice.hardware.abiList =
+                AbiList(abiListString)
             tvDevice.software.apiLevel = "20-"
             tvDevice.software.liveWallpaperSupport = true
             tvDevice.software.glVersion = 2.0F
