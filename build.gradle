@@ -10,18 +10,14 @@ group 'com.utzcoz.emulator.device.generator'
 version '0.1'
 
 repositories {
-    maven {
-        url 'https://maven.aliyun.com/repository/central'
-    }
     mavenCentral()
-    maven {
-        url 'https://dl.google.com/dl/android/maven2/'
-    }
+    maven { url 'https://dl.google.com/dl/android/maven2/' }
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
 }
 
 javafx {
     version = "11.0.2"
-    modules = ['javafx.controls', 'javafx.graphics']
+    modules = ['javafx.controls', 'javafx.graphics', 'javafx.fxml']
 }
 
 dependencies {

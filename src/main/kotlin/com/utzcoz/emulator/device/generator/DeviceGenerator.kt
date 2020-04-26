@@ -1,31 +1,25 @@
 package com.utzcoz.emulator.device.generator
 
-import javafx.scene.text.FontWeight
-import tornadofx.App
-import tornadofx.Stylesheet
-import tornadofx.View
-import tornadofx.c
-import tornadofx.hbox
-import tornadofx.label
+import javafx.application.Application
+import javafx.fxml.FXMLLoader
+import javafx.scene.Parent
+import javafx.scene.Scene
+import javafx.stage.Stage
 import tornadofx.launch
-import tornadofx.px
+import java.io.File
 
-class DeviceGenerator : App(DeviceGeneratorView::class, Styles::class)
-
-class DeviceGeneratorView : View("DeviceGeneratorView") {
-    override val root = hbox {
-        label("Hello world")
+class DeviceGenerator : Application() {
+    override fun start(primaryStage: Stage) {
+        val scenePath = "${File.separator}layout${File.separator}scene.fxml"
+        val root = FXMLLoader.load<Parent>(DeviceGenerator::class.java.getResource(scenePath))
+        primaryStage.title = "Hello world"
+        primaryStage.scene = Scene(root, 300.0, 275.0)
+        primaryStage.show()
     }
 }
 
-class Styles : Stylesheet() {
-    init {
-        Companion.label {
-            fontSize = 20.px
-            fontWeight = FontWeight.BOLD
-            backgroundColor += c("#cecece")
-        }
-    }
+class Controller {
+
 }
 
 fun main(args: Array<String>) {
