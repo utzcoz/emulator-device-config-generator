@@ -43,7 +43,6 @@ class TemplateResourcesTest {
             val fis = it
             ByteArrayOutputStream().use {
                 val result = DeviceSchema.validate(fis, it, file.parentFile)
-                assertEquals("", String(it.toByteArray()))
                 assertTrue(result)
             }
         }
