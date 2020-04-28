@@ -29,7 +29,6 @@ class DeviceGenerator : Application() {
         private const val ID_ID: String = "id"
         private const val ID_MANUFACTURER: String = "manufacturer"
         private const val ID_SCREEN_SIZE: String = "screen-size"
-        private const val ID_DIAGONAL_LENGTH: String = "diagonal-length"
         private const val ID_PIXEL_DENSITY: String = "pixel-density"
         private const val ID_SCREEN_RATIO: String = "screen-ratio"
         private const val ID_X_DIMENSION: String = "x-dimension"
@@ -64,7 +63,6 @@ class DeviceGenerator : Application() {
             ),
             device.hardware.screen.screenSize.type
         )
-        addOneLineTextFiled(hardwareGroup, ID_DIAGONAL_LENGTH, device.hardware.screen.diagonalLength.toString())
         addComboBox(
             hardwareGroup,
             ID_PIXEL_DENSITY,

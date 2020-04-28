@@ -26,7 +26,6 @@ class DeviceTest {
     fun testReadTemplateWithExistTemplatesForDeviceHardwareScreen(templateName: String, expected: Device) {
         val actual = Device.readTemplate(templateName)
         assertEquals(expected.hardware.screen.screenSize, actual.hardware.screen.screenSize)
-        assertEquals(expected.hardware.screen.diagonalLength, actual.hardware.screen.diagonalLength)
         assertEquals(expected.hardware.screen.pixelDensity, actual.hardware.screen.pixelDensity)
         assertEquals(expected.hardware.screen.screenRatio, actual.hardware.screen.screenRatio)
         assertEquals(expected.hardware.screen.dimensions.xDimension, actual.hardware.screen.dimensions.xDimension)
@@ -46,7 +45,6 @@ class DeviceTest {
             automotiveDevice.hardware.screen =
                 Screen()
             automotiveDevice.hardware.screen.screenSize = ScreenSize.NORMAL
-            automotiveDevice.hardware.screen.diagonalLength = 8.4F
             automotiveDevice.hardware.screen.pixelDensity = PixelDensity.MDPI
             automotiveDevice.hardware.screen.screenRatio = ScreenRatio.NOT_LONG
             automotiveDevice.hardware.screen.dimensions =
@@ -65,7 +63,6 @@ class DeviceTest {
             tabletDevice.id = "tablet_template"
             tabletDevice.manufacturer = "Generic"
             tabletDevice.hardware.screen.screenSize = ScreenSize.XLARGE
-            tabletDevice.hardware.screen.diagonalLength = 13.50F
             tabletDevice.hardware.screen.pixelDensity = PixelDensity.HDPI
             tabletDevice.hardware.screen.screenRatio = ScreenRatio.LONG
             tabletDevice.hardware.screen.dimensions.xDimension = 2560
@@ -83,7 +80,6 @@ class DeviceTest {
             tvDevice.id = "tv_template"
             tvDevice.manufacturer = "Generic"
             tvDevice.hardware.screen.screenSize = ScreenSize.XLARGE
-            tvDevice.hardware.screen.diagonalLength = 55.00F
             tvDevice.hardware.screen.pixelDensity = PixelDensity.XHDPI
             tvDevice.hardware.screen.screenRatio = ScreenRatio.LONG
             tvDevice.hardware.screen.dimensions.xDimension = 1920
