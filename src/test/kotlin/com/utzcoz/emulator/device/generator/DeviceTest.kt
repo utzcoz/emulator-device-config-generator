@@ -1,8 +1,6 @@
 package com.utzcoz.emulator.device.generator
 
-import com.utzcoz.emulator.device.generator.hardware.ButtonsType
 import com.utzcoz.emulator.device.generator.hardware.Hardware
-import com.utzcoz.emulator.device.generator.hardware.NavType
 import com.utzcoz.emulator.device.generator.hardware.screen.Dimensions
 import com.utzcoz.emulator.device.generator.hardware.screen.MechanismType
 import com.utzcoz.emulator.device.generator.hardware.screen.MultiTouchType
@@ -41,14 +39,6 @@ class DeviceTest {
         assertEquals(expected.hardware.screen.touch.multiTouchType, actual.hardware.screen.touch.multiTouchType)
         assertEquals(expected.hardware.screen.touch.mechanismType, actual.hardware.screen.touch.mechanismType)
         assertEquals(expected.hardware.screen.touch.screenType, actual.hardware.screen.touch.screenType)
-    }
-
-    @ParameterizedTest
-    @MethodSource("templates")
-    fun testReadTemplateWithExistTemplatesForDeviceHardware(templateName: String, expected: Device) {
-        val actual = Device.readTemplate(templateName)
-        assertEquals(expected.hardware.navType, actual.hardware.navType)
-        assertEquals(expected.hardware.buttonsType, actual.hardware.buttonsType)
     }
 
     companion object {
@@ -115,8 +105,6 @@ class DeviceTest {
             tvDevice.hardware.screen.touch.multiTouchType = MultiTouchType.NONE
             tvDevice.hardware.screen.touch.mechanismType = MechanismType.NOT_TOUCH
             tvDevice.hardware.screen.touch.screenType = ScreenType.NO_TOUCH
-            tvDevice.hardware.navType = NavType.DPAD
-            tvDevice.hardware.buttonsType = ButtonsType.HARD
             return tvDevice
         }
 
