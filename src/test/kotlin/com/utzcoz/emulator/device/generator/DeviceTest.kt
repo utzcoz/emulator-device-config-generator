@@ -3,7 +3,6 @@ package com.utzcoz.emulator.device.generator
 import com.utzcoz.emulator.device.generator.hardware.ButtonsType
 import com.utzcoz.emulator.device.generator.hardware.Hardware
 import com.utzcoz.emulator.device.generator.hardware.NavType
-import com.utzcoz.emulator.device.generator.hardware.StorageUnitType
 import com.utzcoz.emulator.device.generator.hardware.screen.Dimensions
 import com.utzcoz.emulator.device.generator.hardware.screen.MechanismType
 import com.utzcoz.emulator.device.generator.hardware.screen.MultiTouchType
@@ -52,18 +51,6 @@ class DeviceTest {
         assertEquals(expected.hardware.buttonsType, actual.hardware.buttonsType)
     }
 
-    @ParameterizedTest
-    @MethodSource("templates")
-    fun testReadTemplateWithExistTemplatesForDeviceHardwareStorage(templateName: String, expected: Device) {
-        val actual = Device.readTemplate(templateName)
-        assertEquals(expected.hardware.ramSize, actual.hardware.ramSize)
-        assertEquals(expected.hardware.ramUnit, actual.hardware.ramUnit)
-        assertEquals(expected.hardware.internalStorageSize, actual.hardware.internalStorageSize)
-        assertEquals(expected.hardware.internalStorageUnit, actual.hardware.internalStorageUnit)
-        assertEquals(expected.hardware.removableStorageSize, actual.hardware.removableStorageSize)
-        assertEquals(expected.hardware.removableStorageUnit, actual.hardware.removableStorageUnit)
-    }
-
     companion object {
         @JvmStatic
         private fun generateAutomotiveDevice(): Device {
@@ -87,11 +74,6 @@ class DeviceTest {
             automotiveDevice.hardware.screen.touch.multiTouchType = MultiTouchType.BASIC
             automotiveDevice.hardware.screen.touch.mechanismType = MechanismType.FINGER
             automotiveDevice.hardware.screen.touch.screenType = ScreenType.CAPACITIVE
-            automotiveDevice.hardware.ramUnit = StorageUnitType.KB
-            automotiveDevice.hardware.ramSize = 3774492
-            automotiveDevice.hardware.internalStorageUnit = StorageUnitType.KB
-            automotiveDevice.hardware.internalStorageSize = 10255672
-            automotiveDevice.hardware.removableStorageUnit = StorageUnitType.TB
             return automotiveDevice
         }
 
@@ -112,11 +94,6 @@ class DeviceTest {
             tabletDevice.hardware.screen.touch.multiTouchType = MultiTouchType.JAZZ_HANDS
             tabletDevice.hardware.screen.touch.mechanismType = MechanismType.FINGER
             tabletDevice.hardware.screen.touch.screenType = ScreenType.CAPACITIVE
-            tabletDevice.hardware.ramUnit = StorageUnitType.GB
-            tabletDevice.hardware.ramSize = 4
-            tabletDevice.hardware.internalStorageSize = 64
-            tabletDevice.hardware.internalStorageUnit = StorageUnitType.GB
-            tabletDevice.hardware.removableStorageUnit = StorageUnitType.TB
             return tabletDevice
         }
 
@@ -139,12 +116,7 @@ class DeviceTest {
             tvDevice.hardware.screen.touch.mechanismType = MechanismType.NOT_TOUCH
             tvDevice.hardware.screen.touch.screenType = ScreenType.NO_TOUCH
             tvDevice.hardware.navType = NavType.DPAD
-            tvDevice.hardware.ramUnit = StorageUnitType.GB
-            tvDevice.hardware.ramSize = 2
             tvDevice.hardware.buttonsType = ButtonsType.HARD
-            tvDevice.hardware.internalStorageUnit = StorageUnitType.KB
-            tvDevice.hardware.internalStorageSize = 7811891
-            tvDevice.hardware.removableStorageUnit = StorageUnitType.TB
             return tvDevice
         }
 
