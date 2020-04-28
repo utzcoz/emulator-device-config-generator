@@ -1,10 +1,7 @@
 package com.utzcoz.emulator.device.generator
 
 import com.utzcoz.emulator.device.generator.hardware.ButtonsType
-import com.utzcoz.emulator.device.generator.hardware.Camera
-import com.utzcoz.emulator.device.generator.hardware.CameraLocation
 import com.utzcoz.emulator.device.generator.hardware.Hardware
-import com.utzcoz.emulator.device.generator.hardware.KeyboardType
 import com.utzcoz.emulator.device.generator.hardware.NavType
 import com.utzcoz.emulator.device.generator.hardware.StorageUnitType
 import com.utzcoz.emulator.device.generator.hardware.screen.Dimensions
@@ -16,7 +13,6 @@ import com.utzcoz.emulator.device.generator.hardware.screen.ScreenRatio
 import com.utzcoz.emulator.device.generator.hardware.screen.ScreenSize
 import com.utzcoz.emulator.device.generator.hardware.screen.ScreenType
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
@@ -52,10 +48,6 @@ class DeviceTest {
     @MethodSource("templates")
     fun testReadTemplateWithExistTemplatesForDeviceHardware(templateName: String, expected: Device) {
         val actual = Device.readTemplate(templateName)
-        assertEquals(expected.hardware.mic, actual.hardware.mic)
-        assertTrue(actual.hardware.mic)
-        assertEquals(expected.hardware.cameras, actual.hardware.cameras)
-        assertEquals(expected.hardware.keyboardType, actual.hardware.keyboardType)
         assertEquals(expected.hardware.navType, actual.hardware.navType)
         assertEquals(expected.hardware.buttonsType, actual.hardware.buttonsType)
     }
@@ -95,8 +87,6 @@ class DeviceTest {
             automotiveDevice.hardware.screen.touch.multiTouchType = MultiTouchType.BASIC
             automotiveDevice.hardware.screen.touch.mechanismType = MechanismType.FINGER
             automotiveDevice.hardware.screen.touch.screenType = ScreenType.CAPACITIVE
-            automotiveDevice.hardware.mic = true
-            automotiveDevice.hardware.keyboardType = KeyboardType.NO_KEYS
             automotiveDevice.hardware.ramUnit = StorageUnitType.KB
             automotiveDevice.hardware.ramSize = 3774492
             automotiveDevice.hardware.internalStorageUnit = StorageUnitType.KB
@@ -122,17 +112,6 @@ class DeviceTest {
             tabletDevice.hardware.screen.touch.multiTouchType = MultiTouchType.JAZZ_HANDS
             tabletDevice.hardware.screen.touch.mechanismType = MechanismType.FINGER
             tabletDevice.hardware.screen.touch.screenType = ScreenType.CAPACITIVE
-            tabletDevice.hardware.mic = true
-            val cameraFront = Camera()
-            cameraFront.location = CameraLocation.FRONT
-            cameraFront.autoFocus = true
-            cameraFront.flash = false
-            val cameraBack = Camera()
-            cameraBack.location = CameraLocation.BACK
-            cameraBack.autoFocus = true
-            cameraBack.flash = true
-            tabletDevice.hardware.cameras.plus(cameraFront).plus(cameraBack)
-            tabletDevice.hardware.keyboardType = KeyboardType.NO_KEYS
             tabletDevice.hardware.ramUnit = StorageUnitType.GB
             tabletDevice.hardware.ramSize = 4
             tabletDevice.hardware.internalStorageSize = 64
@@ -159,8 +138,6 @@ class DeviceTest {
             tvDevice.hardware.screen.touch.multiTouchType = MultiTouchType.NONE
             tvDevice.hardware.screen.touch.mechanismType = MechanismType.NOT_TOUCH
             tvDevice.hardware.screen.touch.screenType = ScreenType.NO_TOUCH
-            tvDevice.hardware.mic = true
-            tvDevice.hardware.keyboardType = KeyboardType.QWERTY
             tvDevice.hardware.navType = NavType.DPAD
             tvDevice.hardware.ramUnit = StorageUnitType.GB
             tvDevice.hardware.ramSize = 2

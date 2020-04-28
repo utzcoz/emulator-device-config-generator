@@ -4,11 +4,7 @@ import com.utzcoz.emulator.device.generator.hardware.screen.Screen
 import org.dom4j.Element
 
 class Hardware {
-    var screen: Screen =
-        Screen()
-    var mic: Boolean = false
-    val cameras: Set<Camera> = mutableSetOf()
-    var keyboardType: KeyboardType = KeyboardType.NO_KEYS
+    var screen: Screen = Screen()
     var navType: NavType = NavType.NO_NAV
     var ramUnit: StorageUnitType = StorageUnitType.B
     var ramSize: Int = 0
@@ -22,18 +18,7 @@ class Hardware {
         for (element in hardwareElement.elementIterator()) {
             when (element.name) {
                 "screen" -> screen.parse(element)
-                "mic" -> mic = element.text!!.toBoolean()
-                "camera" -> {
-                    val camera = Camera()
-                    camera.parse(element)
-                    cameras.plus(camera)
-                }
-                "keyboard" -> keyboardType =
-                    KeyboardType.getKeyboardType(
-                        element.text
-                    )
-                "nav" -> navType =
-                    NavType.getNavType(element.text)
+                "nav" -> navType = NavType.getNavType(element.text)
                 "ram" -> {
                     ramSize = element.textTrim.toInt()
                     ramUnit =
@@ -62,40 +47,6 @@ class Hardware {
                             element.attribute("unit").text
                         )
                 }
-            }
-        }
-    }
-}
-
-class Camera {
-    var location: CameraLocation = CameraLocation.FRONT
-    var autoFocus: Boolean = false
-    var flash: Boolean = false
-
-    override fun equals(other: Any?): Boolean {
-        if (other !is Camera) {
-            return false
-        }
-        return location == other.location && autoFocus == other.autoFocus && flash == other.flash
-    }
-
-    override fun hashCode(): Int {
-        return ((location.hashCode() * 31) + autoFocus.hashCode()) * 31 + flash.hashCode()
-    }
-
-    override fun toString(): String {
-        return "Camera [ location: ${location.location}, autoFocus: $autoFocus, flash: $flash ]"
-    }
-
-    fun parse(cameraElement: Element) {
-        for (element in cameraElement.elementIterator()) {
-            when (element.name) {
-                "location" -> location =
-                    CameraLocation.getCameraLocation(
-                        element.text
-                    )
-                "autofocus" -> autoFocus = element.text!!.toBoolean()
-                "flash" -> flash = element.text!!.toBoolean()
             }
         }
     }
