@@ -17,11 +17,6 @@ class Hardware {
     var internalStorageSize: Int = 0
     var removableStorageUnit: StorageUnitType = StorageUnitType.B
     var removableStorageSize: Int = 0
-    var cpu: String = "Generic CPU"
-    var gpu: String = "Generic GPU"
-    var abiList: AbiList =
-        AbiList("")
-    var powerType: PowerType = PowerType.PLUGGED_IN
 
     fun parse(hardwareElement: Element) {
         for (element in hardwareElement.elementIterator()) {
@@ -67,31 +62,8 @@ class Hardware {
                             element.attribute("unit").text
                         )
                 }
-                "cpu" -> cpu = element.textTrim
-                "gpu" -> gpu = element.textTrim
-                "abi" -> abiList =
-                    AbiList(element.text) // Use element.textTrim will cause lines() work incorrectly.
-                "power-type" -> powerType =
-                    PowerType.getPowerType(
-                        element.text
-                    )
             }
         }
-    }
-}
-
-class AbiList(abiListString: String) {
-    var abiList: List<AbiType> =
-        generateAbiList(abiListString)
-
-    companion object {
-        private fun generateAbiList(abiListString: String): List<AbiType> =
-            abiListString
-                .splitToSequence("\r\n", "\n", "\r", "\t", "\\s+")
-                .map { s -> s.trim() }
-                .filter { s -> s.isNotEmpty() }
-                .map { s -> AbiType.getAbiType(s) }
-                .toList()
     }
 }
 

@@ -1,13 +1,11 @@
 package com.utzcoz.emulator.device.generator
 
-import com.utzcoz.emulator.device.generator.hardware.AbiList
 import com.utzcoz.emulator.device.generator.hardware.ButtonsType
 import com.utzcoz.emulator.device.generator.hardware.Camera
 import com.utzcoz.emulator.device.generator.hardware.CameraLocation
 import com.utzcoz.emulator.device.generator.hardware.Hardware
 import com.utzcoz.emulator.device.generator.hardware.KeyboardType
 import com.utzcoz.emulator.device.generator.hardware.NavType
-import com.utzcoz.emulator.device.generator.hardware.PowerType
 import com.utzcoz.emulator.device.generator.hardware.StorageUnitType
 import com.utzcoz.emulator.device.generator.hardware.screen.Dimensions
 import com.utzcoz.emulator.device.generator.hardware.screen.MechanismType
@@ -60,10 +58,6 @@ class DeviceTest {
         assertEquals(expected.hardware.keyboardType, actual.hardware.keyboardType)
         assertEquals(expected.hardware.navType, actual.hardware.navType)
         assertEquals(expected.hardware.buttonsType, actual.hardware.buttonsType)
-        assertEquals(expected.hardware.cpu, actual.hardware.cpu)
-        assertEquals(expected.hardware.gpu, actual.hardware.gpu)
-        assertEquals(expected.hardware.abiList.abiList, actual.hardware.abiList.abiList)
-        assertEquals(expected.hardware.powerType, actual.hardware.powerType)
     }
 
     @ParameterizedTest
@@ -108,12 +102,6 @@ class DeviceTest {
             automotiveDevice.hardware.internalStorageUnit = StorageUnitType.KB
             automotiveDevice.hardware.internalStorageSize = 10255672
             automotiveDevice.hardware.removableStorageUnit = StorageUnitType.TB
-            val abiListString = """
-                armeabi-v7a
-                x86
-            """.trimIndent()
-            automotiveDevice.hardware.abiList =
-                AbiList(abiListString)
             return automotiveDevice
         }
 
@@ -150,16 +138,6 @@ class DeviceTest {
             tabletDevice.hardware.internalStorageSize = 64
             tabletDevice.hardware.internalStorageUnit = StorageUnitType.GB
             tabletDevice.hardware.removableStorageUnit = StorageUnitType.TB
-            tabletDevice.hardware.cpu = "Qualcomm Snapdragon 845"
-            tabletDevice.hardware.gpu = "Adreno 630"
-            val abiListString = """
-                armeabi
-                armeabi-v7a
-                arm64-v8a
-            """.trimIndent()
-            tabletDevice.hardware.abiList =
-                AbiList(abiListString)
-            tabletDevice.hardware.powerType = PowerType.BATTERY
             return tabletDevice
         }
 
@@ -190,12 +168,6 @@ class DeviceTest {
             tvDevice.hardware.internalStorageUnit = StorageUnitType.KB
             tvDevice.hardware.internalStorageSize = 7811891
             tvDevice.hardware.removableStorageUnit = StorageUnitType.TB
-            val abiListString = """
-                armeabi-v7a
-                x86
-            """.trimIndent()
-            tvDevice.hardware.abiList =
-                AbiList(abiListString)
             return tvDevice
         }
 
