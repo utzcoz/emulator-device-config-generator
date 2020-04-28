@@ -7,9 +7,7 @@ import com.utzcoz.emulator.device.generator.hardware.CameraLocation
 import com.utzcoz.emulator.device.generator.hardware.Hardware
 import com.utzcoz.emulator.device.generator.hardware.KeyboardType
 import com.utzcoz.emulator.device.generator.hardware.NavType
-import com.utzcoz.emulator.device.generator.hardware.NetworkingList
 import com.utzcoz.emulator.device.generator.hardware.PowerType
-import com.utzcoz.emulator.device.generator.hardware.Sensors
 import com.utzcoz.emulator.device.generator.hardware.StorageUnitType
 import com.utzcoz.emulator.device.generator.hardware.screen.Dimensions
 import com.utzcoz.emulator.device.generator.hardware.screen.MechanismType
@@ -56,8 +54,6 @@ class DeviceTest {
     @MethodSource("templates")
     fun testReadTemplateWithExistTemplatesForDeviceHardware(templateName: String, expected: Device) {
         val actual = Device.readTemplate(templateName)
-        assertEquals(expected.hardware.networkingList.networkingList, actual.hardware.networkingList.networkingList)
-        assertEquals(expected.hardware.sensors.sensors, actual.hardware.sensors.sensors)
         assertEquals(expected.hardware.mic, actual.hardware.mic)
         assertTrue(actual.hardware.mic)
         assertEquals(expected.hardware.cameras, actual.hardware.cameras)
@@ -105,19 +101,6 @@ class DeviceTest {
             automotiveDevice.hardware.screen.touch.multiTouchType = MultiTouchType.BASIC
             automotiveDevice.hardware.screen.touch.mechanismType = MechanismType.FINGER
             automotiveDevice.hardware.screen.touch.screenType = ScreenType.CAPACITIVE
-            val networkingListString = """
-                Bluetooth
-                Wifi
-                NFC
-            """.trimIndent()
-            automotiveDevice.hardware.networkingList =
-                NetworkingList(networkingListString)
-            val sensorsString = """
-                GPS
-                LightSensor
-            """.trimIndent()
-            automotiveDevice.hardware.sensors =
-                Sensors(sensorsString)
             automotiveDevice.hardware.mic = true
             automotiveDevice.hardware.keyboardType = KeyboardType.NO_KEYS
             automotiveDevice.hardware.ramUnit = StorageUnitType.KB
@@ -151,24 +134,6 @@ class DeviceTest {
             tabletDevice.hardware.screen.touch.multiTouchType = MultiTouchType.JAZZ_HANDS
             tabletDevice.hardware.screen.touch.mechanismType = MechanismType.FINGER
             tabletDevice.hardware.screen.touch.screenType = ScreenType.CAPACITIVE
-            val networkingListString = """
-                Bluetooth
-                Wifi
-                NFC
-            """.trimIndent()
-            tabletDevice.hardware.networkingList =
-                NetworkingList(networkingListString)
-            val sensorsString = """
-                Accelerometer
-                Barometer
-                Compass
-                GPS
-                Gyroscope
-                LightSensor
-                ProximitySensor
-            """.trimIndent()
-            tabletDevice.hardware.sensors =
-                Sensors(sensorsString)
             tabletDevice.hardware.mic = true
             val cameraFront = Camera()
             cameraFront.location = CameraLocation.FRONT
@@ -216,19 +181,6 @@ class DeviceTest {
             tvDevice.hardware.screen.touch.multiTouchType = MultiTouchType.NONE
             tvDevice.hardware.screen.touch.mechanismType = MechanismType.NOT_TOUCH
             tvDevice.hardware.screen.touch.screenType = ScreenType.NO_TOUCH
-            val networkingListString = """
-                Bluetooth
-                Wifi
-                NFC
-            """.trimIndent()
-            tvDevice.hardware.networkingList =
-                NetworkingList(networkingListString)
-            val sensorsString = """
-                GPS
-                LightSensor
-            """.trimIndent()
-            tvDevice.hardware.sensors =
-                Sensors(sensorsString)
             tvDevice.hardware.mic = true
             tvDevice.hardware.keyboardType = KeyboardType.QWERTY
             tvDevice.hardware.navType = NavType.DPAD

@@ -6,10 +6,6 @@ import org.dom4j.Element
 class Hardware {
     var screen: Screen =
         Screen()
-    var networkingList: NetworkingList =
-        NetworkingList("")
-    var sensors: Sensors =
-        Sensors("")
     var mic: Boolean = false
     val cameras: Set<Camera> = mutableSetOf()
     var keyboardType: KeyboardType = KeyboardType.NO_KEYS
@@ -31,10 +27,6 @@ class Hardware {
         for (element in hardwareElement.elementIterator()) {
             when (element.name) {
                 "screen" -> screen.parse(element)
-                "networking" -> networkingList =
-                    NetworkingList(element.text)
-                "sensors" -> sensors =
-                    Sensors(element.text)
                 "mic" -> mic = element.text!!.toBoolean()
                 "camera" -> {
                     val camera = Camera()
@@ -85,46 +77,6 @@ class Hardware {
                     )
             }
         }
-    }
-}
-
-class NetworkingList(networkingListString: String) {
-    var networkingList: List<Networking> =
-        generateNetworkingList(
-            networkingListString
-        )
-
-    companion object {
-        private fun generateNetworkingList(networkingListString: String) =
-            networkingListString
-                .lines()
-                .map { s -> s.trim() }
-                .filter { s -> s.isNotEmpty() }
-                .map { s ->
-                    Networking.getNetworkingType(
-                        s
-                    )
-                }
-                .toList()
-    }
-}
-
-class Sensors(sensorsString: String) {
-    var sensors: List<Sensor> =
-        generateSensors(sensorsString)
-
-    companion object {
-        private fun generateSensors(sensorsString: String) =
-            sensorsString
-                .lines()
-                .map { s -> s.trim() }
-                .filter { s -> s.isNotEmpty() }
-                .map { s ->
-                    Sensor.getSensorType(
-                        s
-                    )
-                }
-                .toList()
     }
 }
 
