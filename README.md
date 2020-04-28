@@ -31,3 +31,9 @@ developer for their company custom devices.
 ### Test
 
 `./gradlew test`
+
+### Usage
+
+The following diagram show the `Android Studio` preview with the generated 2k device based
+on automotive template:
+![android-studio-preview-with-generated-2k-automotive-device](images/android-studio-preview-with-generated-2k-automotive-device.png)
