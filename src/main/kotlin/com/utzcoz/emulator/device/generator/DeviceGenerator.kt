@@ -12,12 +12,14 @@ import javafx.scene.control.ComboBox
 import javafx.scene.control.Label
 import javafx.scene.control.ScrollPane
 import javafx.scene.control.TextField
+import javafx.scene.control.TextFormatter
 import javafx.scene.control.TitledPane
 import javafx.scene.layout.BorderPane
 import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
 import javafx.stage.FileChooser
 import javafx.stage.Stage
+import java.util.function.UnaryOperator
 
 class DeviceGenerator : Application() {
     companion object {
@@ -83,6 +85,18 @@ class DeviceGenerator : Application() {
         addOneLineTextFiled(hardwareGroup, ID_Y_DIMENSION, device.hardware.screen.dimensions.yDimension.toString())
         addOneLineTextFiled(hardwareGroup, ID_X_DPI, device.hardware.screen.xdpi.toString())
         addOneLineTextFiled(hardwareGroup, ID_Y_DPI, device.hardware.screen.ydpi.toString())
+        val intFilter =
+            UnaryOperator<TextFormatter.Change?> { change: TextFormatter.Change? ->
+                if ("[0-9]*".toRegex().matches(change!!.text)) change else null
+            }
+        (hardwareGroup.lookup("#$ID_X_DIMENSION") as TextField).textFormatter = TextFormatter<String>(intFilter)
+        (hardwareGroup.lookup("#$ID_Y_DIMENSION") as TextField).textFormatter = TextFormatter<String>(intFilter)
+        val floatFilter =
+            UnaryOperator<TextFormatter.Change?> { change: TextFormatter.Change? ->
+                if ("\\d{0,7}([\\.]\\d{1,4})?".toRegex().matches(change!!.text)) change else null
+            }
+        (hardwareGroup.lookup("#$ID_X_DPI") as TextField).textFormatter = TextFormatter<String>(floatFilter)
+        (hardwareGroup.lookup("#$ID_Y_DPI") as TextField).textFormatter = TextFormatter<String>(floatFilter)
         val hardwarePane = TitledPane("Hardware", hardwareGroup)
         hardwarePane.isCollapsible = true
         hardwarePane.isExpanded = true
