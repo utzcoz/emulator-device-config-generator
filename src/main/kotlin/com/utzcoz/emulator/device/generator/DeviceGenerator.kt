@@ -89,13 +89,39 @@ class DeviceGenerator : Application() {
         vbox.children.add(hardwarePane)
     }
 
-    private fun generateDeviceConfig(primaryStage: Stage, vbox: VBox, template: String) {
+    private fun generateDeviceConfig(primaryStage: Stage, device: Device) {
         val fileChooser = FileChooser()
         fileChooser.title = "Select file to store the new config"
         fileChooser.initialFileName = "new-device.xml"
         fileChooser.extensionFilters.add(FileChooser.ExtensionFilter("XML File", "*.xml"))
         val saveFile = fileChooser.showSaveDialog(primaryStage)
-        println("save file ${saveFile.absolutePath}")
+        device.name = (primaryStage.scene.lookup("#$ID_NAME") as TextField).text
+        device.id = (primaryStage.scene.lookup("#$ID_ID") as TextField).text
+        device.manufacturer = (primaryStage.scene.lookup("#$ID_MANUFACTURER") as TextField).text
+        device.hardware.screen.screenSize =
+            ScreenSize.getScreenSizeType(
+                (primaryStage.scene.lookup("#$ID_SCREEN_SIZE") as ComboBox<*>)
+                    .selectionModel.selectedItem as String
+            )
+        device.hardware.screen.screenRatio =
+            ScreenRatio.getScreenRatioType(
+                (primaryStage.scene.lookup("#$ID_SCREEN_RATIO") as ComboBox<*>)
+                    .selectionModel.selectedItem as String
+            )
+        device.hardware.screen.pixelDensity =
+            PixelDensity.getPixelDensityType(
+                (primaryStage.scene.lookup("#$ID_PIXEL_DENSITY") as ComboBox<*>)
+                    .selectionModel.selectedItem as String
+            )
+        device.hardware.screen.dimensions.xDimension =
+            (primaryStage.scene.lookup("#$ID_X_DIMENSION") as TextField).text.toInt()
+        device.hardware.screen.dimensions.yDimension =
+            (primaryStage.scene.lookup("#$ID_Y_DIMENSION") as TextField).text.toInt()
+        device.hardware.screen.xdpi =
+            (primaryStage.scene.lookup("#$ID_X_DPI") as TextField).text.toFloat()
+        device.hardware.screen.ydpi =
+            (primaryStage.scene.lookup("#$ID_Y_DPI") as TextField).text.toFloat()
+        Device.saveDevice(device, saveFile)
     }
 
     private fun switchToTemplatePage(primaryStage: Stage, template: String) {
@@ -114,7 +140,7 @@ class DeviceGenerator : Application() {
         generateHardwareGroup(vbox, device)
         vbox.children.add(Button("Generate").apply {
             setOnAction {
-                generateDeviceConfig(primaryStage, vbox, template)
+                generateDeviceConfig(primaryStage, device)
             }
         })
         scrollPane.content = vbox
