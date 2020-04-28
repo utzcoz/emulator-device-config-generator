@@ -19,9 +19,6 @@ import com.utzcoz.emulator.device.generator.hardware.screen.Screen
 import com.utzcoz.emulator.device.generator.hardware.screen.ScreenRatio
 import com.utzcoz.emulator.device.generator.hardware.screen.ScreenSize
 import com.utzcoz.emulator.device.generator.hardware.screen.ScreenType
-import com.utzcoz.emulator.device.generator.state.NavState
-import com.utzcoz.emulator.device.generator.state.ScreenOrientation
-import com.utzcoz.emulator.device.generator.state.State
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.params.ParameterizedTest
@@ -36,7 +33,6 @@ class DeviceTest {
         assertEquals(expected.name, actual.name)
         assertEquals(expected.id, actual.id)
         assertEquals(expected.manufacturer, actual.manufacturer)
-        assertEquals(expected.tagId, actual.tagId)
     }
 
     @ParameterizedTest
@@ -84,13 +80,6 @@ class DeviceTest {
         assertEquals(expected.hardware.internalStorageUnit, actual.hardware.internalStorageUnit)
         assertEquals(expected.hardware.removableStorageSize, actual.hardware.removableStorageSize)
         assertEquals(expected.hardware.removableStorageUnit, actual.hardware.removableStorageUnit)
-    }
-
-    @ParameterizedTest
-    @MethodSource("templates")
-    fun testReadTemplateWithExistTemplatesForDeviceState(templateName: String, expected: Device) {
-        val actual = Device.readTemplate(templateName)
-        assertEquals(expected.states, actual.states)
     }
 
     companion object {
@@ -142,14 +131,6 @@ class DeviceTest {
             """.trimIndent()
             automotiveDevice.hardware.abiList =
                 AbiList(abiListString)
-            val state = State()
-            state.default = true
-            state.name = "Landscape"
-            state.description = "The device in landscape orientation"
-            state.screenOrientation = ScreenOrientation.LANDSCAPE
-            state.navState = NavState.NAV_HIDDEN
-            automotiveDevice.states.plus(state)
-            automotiveDevice.tagId = "android-automotive"
             return automotiveDevice
         }
 
@@ -214,19 +195,6 @@ class DeviceTest {
             tabletDevice.hardware.abiList =
                 AbiList(abiListString)
             tabletDevice.hardware.powerType = PowerType.BATTERY
-            val portraitState = State()
-            portraitState.default = false
-            portraitState.name = "Portrait"
-            portraitState.description = "The device in portrait view"
-            portraitState.screenOrientation = ScreenOrientation.PORTRAIT
-            portraitState.navState = NavState.NAV_HIDDEN
-            val landscapeState = State()
-            landscapeState.default = true
-            landscapeState.name = "Landscape"
-            landscapeState.description = "The device in landscape view"
-            landscapeState.screenOrientation = ScreenOrientation.LANDSCAPE
-            landscapeState.navState = NavState.NAV_HIDDEN
-            tabletDevice.states.plus(portraitState).plus(landscapeState)
             return tabletDevice
         }
 
@@ -276,20 +244,6 @@ class DeviceTest {
             """.trimIndent()
             tvDevice.hardware.abiList =
                 AbiList(abiListString)
-            val landscapeState = State()
-            landscapeState.default = true
-            landscapeState.name = "Landscape"
-            landscapeState.description = "The device in landscape orientation"
-            landscapeState.screenOrientation = ScreenOrientation.LANDSCAPE
-            landscapeState.navState = NavState.NAV_EXPOSED
-            val landscapeWithKeyboardState = State()
-            landscapeWithKeyboardState.default = false
-            landscapeWithKeyboardState.name = "Landscape with keyboard"
-            landscapeWithKeyboardState.description = "The device in landscape orientation with a keyboard open"
-            landscapeWithKeyboardState.screenOrientation = ScreenOrientation.LANDSCAPE
-            landscapeWithKeyboardState.navState = NavState.NAV_EXPOSED
-            tvDevice.states.plus(landscapeState).plus(landscapeWithKeyboardState)
-            tvDevice.tagId = "android-tv"
             return tvDevice
         }
 

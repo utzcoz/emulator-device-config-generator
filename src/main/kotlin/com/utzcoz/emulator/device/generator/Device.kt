@@ -1,7 +1,6 @@
 package com.utzcoz.emulator.device.generator
 
 import com.utzcoz.emulator.device.generator.hardware.Hardware
-import com.utzcoz.emulator.device.generator.state.State
 import org.dom4j.io.SAXReader
 import java.io.File
 import java.net.URL
@@ -10,10 +9,7 @@ class Device {
     var id: String = ""
     var name: String = ""
     var manufacturer: String = ""
-    var hardware: Hardware =
-        Hardware()
-    var states: Set<State> = mutableSetOf()
-    var tagId: String = ""
+    var hardware: Hardware = Hardware()
 
     companion object {
         fun readTemplate(templateName: String): Device {
@@ -37,12 +33,6 @@ class Device {
                     "id" -> device.id = element.text
                     "manufacturer" -> device.manufacturer = element.text
                     "hardware" -> device.hardware.parse(element)
-                    "state" -> {
-                        val state = State()
-                        state.parse(element)
-                        device.states.plus(state)
-                    }
-                    "tag-id" -> device.tagId = element.textTrim
                 }
             }
             return device
