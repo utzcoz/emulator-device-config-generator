@@ -2,13 +2,10 @@ package com.utzcoz.emulator.device.generator
 
 import com.utzcoz.emulator.device.generator.hardware.Hardware
 import com.utzcoz.emulator.device.generator.hardware.screen.Dimensions
-import com.utzcoz.emulator.device.generator.hardware.screen.MechanismType
-import com.utzcoz.emulator.device.generator.hardware.screen.MultiTouchType
 import com.utzcoz.emulator.device.generator.hardware.screen.PixelDensity
 import com.utzcoz.emulator.device.generator.hardware.screen.Screen
 import com.utzcoz.emulator.device.generator.hardware.screen.ScreenRatio
 import com.utzcoz.emulator.device.generator.hardware.screen.ScreenSize
-import com.utzcoz.emulator.device.generator.hardware.screen.ScreenType
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
@@ -36,9 +33,6 @@ class DeviceTest {
         assertEquals(expected.hardware.screen.dimensions.yDimension, actual.hardware.screen.dimensions.yDimension)
         assertEquals(expected.hardware.screen.xdpi, actual.hardware.screen.xdpi)
         assertEquals(expected.hardware.screen.ydpi, actual.hardware.screen.ydpi)
-        assertEquals(expected.hardware.screen.touch.multiTouchType, actual.hardware.screen.touch.multiTouchType)
-        assertEquals(expected.hardware.screen.touch.mechanismType, actual.hardware.screen.touch.mechanismType)
-        assertEquals(expected.hardware.screen.touch.screenType, actual.hardware.screen.touch.screenType)
     }
 
     companion object {
@@ -61,9 +55,6 @@ class DeviceTest {
             automotiveDevice.hardware.screen.dimensions.yDimension = 768
             automotiveDevice.hardware.screen.xdpi = 152.00F
             automotiveDevice.hardware.screen.ydpi = 152.00F
-            automotiveDevice.hardware.screen.touch.multiTouchType = MultiTouchType.BASIC
-            automotiveDevice.hardware.screen.touch.mechanismType = MechanismType.FINGER
-            automotiveDevice.hardware.screen.touch.screenType = ScreenType.CAPACITIVE
             return automotiveDevice
         }
 
@@ -81,9 +72,6 @@ class DeviceTest {
             tabletDevice.hardware.screen.dimensions.yDimension = 1440
             tabletDevice.hardware.screen.xdpi = 240.00F
             tabletDevice.hardware.screen.ydpi = 240.00F
-            tabletDevice.hardware.screen.touch.multiTouchType = MultiTouchType.JAZZ_HANDS
-            tabletDevice.hardware.screen.touch.mechanismType = MechanismType.FINGER
-            tabletDevice.hardware.screen.touch.screenType = ScreenType.CAPACITIVE
             return tabletDevice
         }
 
@@ -102,9 +90,6 @@ class DeviceTest {
             tvDevice.hardware.screen.dimensions.yDimension = 1080
             tvDevice.hardware.screen.xdpi = 40.05F
             tvDevice.hardware.screen.ydpi = 40.05F
-            tvDevice.hardware.screen.touch.multiTouchType = MultiTouchType.NONE
-            tvDevice.hardware.screen.touch.mechanismType = MechanismType.NOT_TOUCH
-            tvDevice.hardware.screen.touch.screenType = ScreenType.NO_TOUCH
             return tvDevice
         }
 

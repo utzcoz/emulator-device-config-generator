@@ -10,7 +10,6 @@ class Screen {
     var dimensions: Dimensions = Dimensions()
     var xdpi: Float = 0F
     var ydpi: Float = 0F
-    var touch: Touch = Touch()
 
     fun parse(screenElement: Element) {
         for (element in screenElement.elementIterator()) {
@@ -31,7 +30,6 @@ class Screen {
                 "dimensions" -> dimensions.parse(element)
                 "xdpi" -> xdpi = element.textTrim.toFloat()
                 "ydpi" -> ydpi = element.textTrim.toFloat()
-                "touch" -> touch.parse(element)
             }
         }
     }
@@ -46,22 +44,6 @@ class Dimensions {
             when (element.name) {
                 "x-dimension" -> xDimension = element.textTrim.toInt()
                 "y-dimension" -> yDimension = element.textTrim.toInt()
-            }
-        }
-    }
-}
-
-class Touch {
-    var multiTouchType: MultiTouchType = MultiTouchType.NONE
-    var mechanismType: MechanismType = MechanismType.NOT_TOUCH
-    var screenType: ScreenType = ScreenType.NO_TOUCH
-
-    fun parse(touchElement: Element) {
-        for (element in touchElement.elementIterator()) {
-            when (element.name) {
-                "multitouch" -> multiTouchType = MultiTouchType.getMultiTouchType(element.text)
-                "mechanism" -> mechanismType = MechanismType.getMechanismType(element.text)
-                "screen-type" -> screenType = ScreenType.getScreenType(element.text)
             }
         }
     }
