@@ -1,4 +1,4 @@
-package com.utzcoz.emulator.device.generator.hardware.screen
+package com.utzcoz.emulator.device.generator.hardware
 
 enum class ScreenSize(val type: String) {
     SMALL("small"),

@@ -1,8 +1,8 @@
 package com.utzcoz.emulator.device.generator
 
-import com.utzcoz.emulator.device.generator.hardware.screen.PixelDensity
-import com.utzcoz.emulator.device.generator.hardware.screen.ScreenRatio
-import com.utzcoz.emulator.device.generator.hardware.screen.ScreenSize
+import com.utzcoz.emulator.device.generator.hardware.PixelDensity
+import com.utzcoz.emulator.device.generator.hardware.ScreenRatio
+import com.utzcoz.emulator.device.generator.hardware.ScreenSize
 import javafx.application.Application
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList

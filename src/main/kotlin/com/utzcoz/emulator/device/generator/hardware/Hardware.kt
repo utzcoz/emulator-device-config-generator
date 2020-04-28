@@ -1,10 +1,10 @@
 package com.utzcoz.emulator.device.generator.hardware
 
-import com.utzcoz.emulator.device.generator.hardware.screen.Screen
 import org.dom4j.Element
 
 class Hardware {
-    var screen: Screen = Screen()
+    var screen: Screen =
+        Screen()
 
     fun parse(hardwareElement: Element) {
         for (element in hardwareElement.elementIterator()) {

@@ -1,11 +1,11 @@
 package com.utzcoz.emulator.device.generator
 
 import com.utzcoz.emulator.device.generator.hardware.Hardware
-import com.utzcoz.emulator.device.generator.hardware.screen.Dimensions
-import com.utzcoz.emulator.device.generator.hardware.screen.PixelDensity
-import com.utzcoz.emulator.device.generator.hardware.screen.Screen
-import com.utzcoz.emulator.device.generator.hardware.screen.ScreenRatio
-import com.utzcoz.emulator.device.generator.hardware.screen.ScreenSize
+import com.utzcoz.emulator.device.generator.hardware.Dimensions
+import com.utzcoz.emulator.device.generator.hardware.PixelDensity
+import com.utzcoz.emulator.device.generator.hardware.Screen
+import com.utzcoz.emulator.device.generator.hardware.ScreenRatio
+import com.utzcoz.emulator.device.generator.hardware.ScreenSize
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
