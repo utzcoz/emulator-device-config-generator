@@ -16,6 +16,7 @@ import javafx.scene.control.TitledPane
 import javafx.scene.layout.BorderPane
 import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
+import javafx.stage.FileChooser
 import javafx.stage.Stage
 
 class DeviceGenerator : Application() {
@@ -90,6 +91,15 @@ class DeviceGenerator : Application() {
         vbox.children.add(hardwarePane)
     }
 
+    private fun generateDeviceConfig(primaryStage: Stage, vbox: VBox, template: String) {
+        val fileChooser = FileChooser()
+        fileChooser.title = "Select file to store the new config"
+        fileChooser.initialFileName = "new-device.xml"
+        fileChooser.extensionFilters.add(FileChooser.ExtensionFilter("XML File", "*.xml"))
+        val saveFile = fileChooser.showSaveDialog(primaryStage)
+        println("save file ${saveFile.absolutePath}")
+    }
+
     private fun switchToTemplatePage(primaryStage: Stage, template: String) {
         val root = BorderPane()
         val device = Device.readTemplate(template)
@@ -104,7 +114,11 @@ class DeviceGenerator : Application() {
         addOneLineTextFiled(vbox, ID_ID, device.id)
         addOneLineTextFiled(vbox, ID_MANUFACTURER, device.manufacturer)
         generateHardwareGroup(vbox, device)
-        vbox.children.add(Button("Generate"))
+        vbox.children.add(Button("Generate").apply {
+            setOnAction {
+                generateDeviceConfig(primaryStage, vbox, template)
+            }
+        })
         scrollPane.content = vbox
         root.center = scrollPane
         primaryStage.scene = Scene(root, 400.0, 600.0)

@@ -3,6 +3,7 @@ package com.utzcoz.emulator.device.generator
 import com.utzcoz.emulator.device.generator.hardware.Hardware
 import com.utzcoz.emulator.device.generator.software.Software
 import com.utzcoz.emulator.device.generator.state.State
+import org.dom4j.DocumentFactory
 import org.dom4j.io.SAXReader
 import java.io.File
 import java.net.URL
