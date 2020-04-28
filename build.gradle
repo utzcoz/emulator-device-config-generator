@@ -1,5 +1,4 @@
 plugins {
-    id 'com.github.johnrengelman.shadow' version '5.2.0'
     id 'java'
     id 'org.jetbrains.kotlin.jvm' version '1.3.72'
     id 'application'
@@ -43,13 +42,3 @@ compileTestKotlin {
 }
 
 mainClassName = 'com.utzcoz.emulator.device.generator.DeviceGenerator'
-
-jar {
-    manifest {
-        attributes(
-                'Implementation-Title': project.name,
-                'Implementation-Version': project.version,
-                'Main-Class': 'com.utzcoz.emulator.device.generator.DeviceGenerator'
-        )
-    }
-}
